@@ -124,12 +124,12 @@ export const ProductQuickView: React.FC<ProductQuickViewProps> = ({
             >
               {isAdded ? (
                 <>
-                  <Check className="w-4 h-4 text-deep-forest mr-1" />
+                  <Check className="w-4 h-4 text-deep-forest" />
                   <span>Added to Bag</span>
                 </>
               ) : (
                 <>
-                  <Plus className="w-4 h-4 mr-1" />
+                  <Plus className="w-4 h-4" />
                   <span>Add {quantity} to Bag</span>
                 </>
               )}

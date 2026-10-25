@@ -1,6 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
+import { CartProvider } from "@/context/CartContext";
+import { LenisProvider } from "@/components/motion/LenisProvider";
+import { CartFlightProvider } from "@/components/motion/CartFlightContext";
+import { Preloader } from "@/components/motion/Preloader";
+import { CustomCursor } from "@/components/motion/CustomCursor";
+import { PageTransition } from "@/components/motion/PageTransition";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -49,8 +55,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
-      <body className="font-body bg-warm-ivory text-soft-ink antialiased selection:bg-electric-citrus selection:text-deep-forest">
-        {children}
+      <body className="font-body bg-warm-ivory text-soft-ink antialiased selection:bg-electric-citrus selection:text-deep-forest relative">
+        <div className="grain-overlay" aria-hidden="true" />
+        <Preloader />
+        <CustomCursor />
+        <LenisProvider>
+          <CartProvider>
+            <CartFlightProvider>
+              <PageTransition>{children}</PageTransition>
+            </CartFlightProvider>
+          </CartProvider>
+        </LenisProvider>
       </body>
     </html>
   );

@@ -1,15 +1,17 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { Home, Grid, Search, Heart, ShoppingBag } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 export interface MobileBottomNavProps {
-  cartCount: number;
-  wishlistCount: number;
-  onOpenCategories: () => void;
-  onOpenSearch: () => void;
-  onOpenWishlist: () => void;
-  onOpenCart: () => void;
+  cartCount?: number;
+  wishlistCount?: number;
+  onOpenCategories?: () => void;
+  onOpenSearch?: () => void;
+  onOpenWishlist?: () => void;
+  onOpenCart?: () => void;
   activeTab?: "home" | "categories" | "search" | "wishlist" | "cart";
 }
 
@@ -22,6 +24,19 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   onOpenCart,
   activeTab = "home",
 }) => {
+  const router = useRouter();
+  const cartContext = useCart();
+
+  const effectiveCartCount =
+    cartCount !== undefined ? cartCount : cartContext.cartCount;
+  const effectiveWishlistCount =
+    wishlistCount !== undefined ? wishlistCount : cartContext.wishlist.length;
+  const effectiveOnOpenCart = onOpenCart || (() => cartContext.setIsCartOpen(true));
+  const effectiveOnOpenWishlist =
+    onOpenWishlist || (() => cartContext.setIsWishlistOpen(true));
+  const effectiveOnOpenCategories =
+    onOpenCategories || (() => router.push("/category"));
+
   return (
     <nav
       aria-label="Mobile Navigation"
@@ -32,7 +47,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         <button
           type="button"
           onClick={() => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            router.push("/");
           }}
           aria-label="Home"
           className={`flex flex-col items-center justify-center min-h-[44px] py-1 text-center transition-colors cursor-pointer ${
@@ -48,9 +63,13 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         {/* Categories */}
         <button
           type="button"
-          onClick={onOpenCategories}
+          onClick={effectiveOnOpenCategories}
           aria-label="Categories"
-          className="flex flex-col items-center justify-center min-h-[44px] py-1 text-center text-ink-muted hover:text-soft-ink transition-colors cursor-pointer"
+          className={`flex flex-col items-center justify-center min-h-[44px] py-1 text-center transition-colors cursor-pointer ${
+            activeTab === "categories"
+              ? "text-deep-forest font-semibold"
+              : "text-ink-muted hover:text-soft-ink"
+          }`}
         >
           <Grid className="w-5 h-5 stroke-[1.8]" />
           <span className="text-[10px] mt-1 font-mono tracking-tight leading-none">Catalog</span>
@@ -59,9 +78,13 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         {/* Search */}
         <button
           type="button"
-          onClick={onOpenSearch}
+          onClick={onOpenSearch || (() => router.push("/category"))}
           aria-label="Search"
-          className="flex flex-col items-center justify-center min-h-[44px] py-1 text-center text-ink-muted hover:text-soft-ink transition-colors cursor-pointer"
+          className={`flex flex-col items-center justify-center min-h-[44px] py-1 text-center transition-colors cursor-pointer ${
+            activeTab === "search"
+              ? "text-deep-forest font-semibold"
+              : "text-ink-muted hover:text-soft-ink"
+          }`}
         >
           <Search className="w-5 h-5 stroke-[1.8]" />
           <span className="text-[10px] mt-1 font-mono tracking-tight leading-none">Search</span>
@@ -70,15 +93,15 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         {/* Wishlist */}
         <button
           type="button"
-          onClick={onOpenWishlist}
-          aria-label={`Saved items, ${wishlistCount} items`}
+          onClick={effectiveOnOpenWishlist}
+          aria-label={`Saved items, ${effectiveWishlistCount} items`}
           className="relative flex flex-col items-center justify-center min-h-[44px] py-1 text-center text-ink-muted hover:text-soft-ink transition-colors cursor-pointer"
         >
           <div className="relative">
             <Heart className="w-5 h-5 stroke-[1.8]" />
-            {wishlistCount > 0 && (
+            {effectiveWishlistCount > 0 && (
               <span className="absolute -top-1.5 -right-2 min-w-[16px] h-4 px-1 rounded-full bg-coral-pop text-deep-forest text-[9px] font-bold font-mono flex items-center justify-center leading-none">
-                {wishlistCount}
+                {effectiveWishlistCount}
               </span>
             )}
           </div>
@@ -88,15 +111,15 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         {/* Bag */}
         <button
           type="button"
-          onClick={onOpenCart}
-          aria-label={`Shopping bag, ${cartCount} items`}
+          onClick={effectiveOnOpenCart}
+          aria-label={`Shopping bag, ${effectiveCartCount} items`}
           className="relative flex flex-col items-center justify-center min-h-[44px] py-1 text-center text-ink-muted hover:text-soft-ink transition-colors cursor-pointer"
         >
           <div className="relative">
             <ShoppingBag className="w-5 h-5 stroke-[1.8]" />
-            {cartCount > 0 && (
+            {effectiveCartCount > 0 && (
               <span className="absolute -top-1.5 -right-2 min-w-[16px] h-4 px-1 rounded-full bg-deep-forest text-warm-ivory text-[9px] font-bold font-mono flex items-center justify-center leading-none">
-                {cartCount}
+                {effectiveCartCount}
               </span>
             )}
           </div>

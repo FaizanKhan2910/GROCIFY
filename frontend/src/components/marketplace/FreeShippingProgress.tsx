@@ -1,4 +1,19 @@
+"use client";
+
+/**
+ * ============================================================================
+ * GROCIFY FREE SHIPPING PROGRESS
+ * ============================================================================
+ * Animates live threshold progress (₹499 ceiling) with spring-loaded bar.
+ *
+ * TUNABLE PARAMETERS:
+ * - SPRING_STIFFNESS: 140
+ * - SPRING_DAMPING: 20
+ * ============================================================================
+ */
+
 import React from "react";
+import { motion } from "framer-motion";
 import { Truck, CheckCircle2 } from "lucide-react";
 import { calculateShipping } from "@/lib/business-rules";
 import { formatRupees } from "@/lib/formatters";
@@ -16,7 +31,7 @@ export const FreeShippingProgress: React.FC<FreeShippingProgressProps> = ({
 
   return (
     <div
-      className={`p-3.5 rounded-md border border-ivory-border bg-warm-ivory text-xs ${className}`}
+      className={`p-3.5 rounded-md border border-ivory-border bg-warm-ivory text-xs shadow-subtle ${className}`}
     >
       <div className="flex items-center justify-between mb-2 gap-2">
         <div className="flex items-center gap-1.5 font-medium text-soft-ink">
@@ -45,7 +60,7 @@ export const FreeShippingProgress: React.FC<FreeShippingProgressProps> = ({
         </span>
       </div>
 
-      {/* Progress bar */}
+      {/* Animated Spring Progress Bar */}
       <div
         className="w-full h-1.5 bg-ivory-border rounded-full overflow-hidden"
         role="progressbar"
@@ -53,9 +68,11 @@ export const FreeShippingProgress: React.FC<FreeShippingProgressProps> = ({
         aria-valuemin={0}
         aria-valuemax={100}
       >
-        <div
-          className="h-full bg-deep-forest transition-all duration-300 rounded-full"
-          style={{ width: `${calculation.progressPercentage}%` }}
+        <motion.div
+          className="h-full bg-deep-forest rounded-full shadow-[0_0_8px_rgba(23,61,45,0.3)]"
+          initial={{ width: 0 }}
+          animate={{ width: `${calculation.progressPercentage}%` }}
+          transition={{ type: "spring", stiffness: 140, damping: 20 }}
         />
       </div>
     </div>
