@@ -40,7 +40,8 @@ All commerce policies are centralized in [`frontend/src/lib/business-rules.ts`](
 2. **Transparent Delivery Rule**:
    - `FREE_SHIPPING_THRESHOLD_INR = 499`.
    - `STANDARD_SHIPPING_FEE_INR = 59`.
-   - Orders `< ₹499` incur ₹59 delivery.
+   - Orders `< ₹499` incur ₹59 del
+   
    - Orders `≥ ₹499` unlock free standard delivery across all covered Indian pin codes.
    - Live shipping progress is displayed to customers without deceptive countdowns.
 3. **Unconfirmed Policy Flags**:
@@ -83,3 +84,4 @@ npm run dev
 ## 5. Next Phase: Screen 01
 
 With the design system and engineering foundation complete and verified, the next implementation milestone is **Screen 01: Home / Discovery**.
+# GROCIFY
