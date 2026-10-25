@@ -186,12 +186,6 @@ export default function HomePage() {
                   <Badge variant="eco" size="md">
                     Zero Plastic Packaging
                   </Badge>
-                  <span className="font-mono text-xs text-deep-forest font-semibold bg-forest-subtle px-2.5 py-1 rounded-sm border border-deep-forest/15">
-                    Strictly ≤ ₹1,000
-                  </span>
-                  <span className="font-mono text-xs text-ink-muted hidden sm:inline">
-                    HOW Networks
-                  </span>
                 </div>
 
                 {/* Primary Display Headline */}
