@@ -1,0 +1,16 @@
+{
+  "name": "grocify-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GROCIFY — Curated Marketplace for Mindful Everyday Goods in India (HOW Networks)",
+  "scripts": {
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "lint": "npm --prefix frontend run lint",
+    "start": "npm --prefix frontend run start"
+  },
+  "workspaces": [
+    "frontend",
+    "backend"
+  ]
+}

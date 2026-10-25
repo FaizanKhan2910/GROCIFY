@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@theme {
+  --color-deep-forest: #173D2D;
+  --color-electric-citrus: #C8E66B;
+  --color-warm-ivory: #F8F6EF;
+  --color-coral-pop: #F0A7A0;
+  --color-butter-yellow: #F5CF63;
+  --color-soft-ink: #242820;
+
+  /* Extended semantic shades */
+  --color-forest-dark: #0f271d;
+  --color-forest-light: #21513c;
+  --color-forest-subtle: #ebf2ee;
+  
+  --color-citrus-hover: #b4d84f;
+  --color-citrus-muted: #e6f6bc;
+
+  --color-ivory-light: #fcfbfa;
+  --color-ivory-muted: #ede9dd;
+  --color-ivory-border: #e2ddd0;
+
+  --color-coral-subtle: #fbebea;
+  --color-coral-hover: #e59088;
+
+  --color-yellow-subtle: #fcf4de;
+
+  --color-ink-muted: #5f6655;
+  --color-ink-subtle: #969e8d;
+  --color-ink-faint: #d5d9cf;
+
+  /* Typography */
+  --font-display: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+  --font-body: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Shadows tuned for Warm Ivory surface */
+  --shadow-subtle: 0 1px 3px 0 rgba(36, 40, 32, 0.06);
+  --shadow-card: 0 4px 16px -2px rgba(23, 61, 45, 0.06), 0 2px 6px -1px rgba(23, 61, 45, 0.04);
+  --shadow-card-hover: 0 10px 24px -4px rgba(23, 61, 45, 0.10), 0 4px 10px -2px rgba(23, 61, 45, 0.05);
+  --shadow-drawer: 0 -8px 30px rgba(23, 61, 45, 0.15);
+  --shadow-modal: 0 20px 40px -8px rgba(23, 61, 45, 0.22);
+
+  /* Radii scale: disciplined, avoiding bubble/blob excess */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+}
+
+/* Base resets & typography foundation */
+html {
+  scroll-behavior: smooth;
+  background-color: var(--color-warm-ivory);
+  color: var(--color-soft-ink);
+  font-family: var(--font-body);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--color-warm-ivory);
+  color: var(--color-soft-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Display headings */
+h1, h2, h3, h4, h5, h6, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+}
+
+/* Accessible focus outline */
+:focus-visible {
+  outline: 2px solid var(--color-deep-forest);
+  outline-offset: 2px;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom scrollbar for subtle aesthetic */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-warm-ivory);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ivory-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ink-subtle);
+}
